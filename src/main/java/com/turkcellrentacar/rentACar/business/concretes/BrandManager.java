@@ -1,34 +1,53 @@
 package com.turkcellrentacar.rentACar.business.concretes;
 
 import com.turkcellrentacar.rentACar.business.abstracts.BrandService;
+import com.turkcellrentacar.rentACar.business.dto.requests.create.CreateBrandRequest;
+import com.turkcellrentacar.rentACar.business.dto.responses.create.CreateBrandResponse;
+import com.turkcellrentacar.rentACar.business.dto.responses.get.GetAllBrandsResponse;
+import com.turkcellrentacar.rentACar.business.dto.responses.get.GetBrandResponse;
 import com.turkcellrentacar.rentACar.entities.Brand;
 import com.turkcellrentacar.rentACar.repository.BrandRepository;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class BrandManager implements BrandService {
     private final BrandRepository brandRepository;
+    private final ModelMapper mapper;
 
 
 
     @Override
-    public List<Brand> getAll() {
-        return brandRepository.findAll();
+    public List<GetAllBrandsResponse> getAll() {
+        List<Brand> brands = brandRepository.findAll();
+        List<GetAllBrandsResponse> getAllBrandsResponse = brands.stream()
+                .map(brand -> mapper.map(brand, GetAllBrandsResponse.class)).toList();
+
+        return getAllBrandsResponse;
     }
 
     @Override
-    public Brand getById(int id) {
+    public GetBrandResponse getById(int id) {
         checkIfBrandExists(id);
-        return brandRepository.findById(id).orElseThrow();
+        Brand brand = brandRepository.findById(id).orElseThrow();
+        GetBrandResponse getBrandResponse = mapper.map(brand, GetBrandResponse.class);
+
+        return getBrandResponse;
     }
 
     @Override
-    public Brand add(Brand brand) {
-        return brandRepository.save(brand);
+    public CreateBrandResponse add(CreateBrandRequest createBrandRequest) {
+        Brand brand = mapper.map(createBrandRequest, Brand.class);
+        brand.setId(0);
+        brandRepository.save(brand);
+        CreateBrandResponse createBrandResponse = mapper.map(brand, CreateBrandResponse.class);
+
+        return createBrandResponse;
     }
 
     @Override

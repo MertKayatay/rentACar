@@ -1,27 +1,28 @@
 package com.turkcellrentacar.rentACar.entities;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "brands")
-public class Brand {
-    @Id //Primary key
+@Table(name = "cars")
+public class Car {
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
+    private int modelYear;
+    private String plate;
+    private int state;  //1-Available 2- Ranted 3-Maintance
+    private double dailyPrice;
 
-    @OneToMany(mappedBy = "brand")
-    private List<Model> model;
-
+    @ManyToOne
+    @JoinColumn(name = "model_id")
+    private Model model;
 }

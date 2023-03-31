@@ -1,6 +1,10 @@
 package com.turkcellrentacar.rentACar.api.controllers;
 
 import com.turkcellrentacar.rentACar.business.abstracts.BrandService;
+import com.turkcellrentacar.rentACar.business.dto.requests.create.CreateBrandRequest;
+import com.turkcellrentacar.rentACar.business.dto.responses.create.CreateBrandResponse;
+import com.turkcellrentacar.rentACar.business.dto.responses.get.GetAllBrandsResponse;
+import com.turkcellrentacar.rentACar.business.dto.responses.get.GetBrandResponse;
 import com.turkcellrentacar.rentACar.entities.Brand;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,19 +19,19 @@ public class BrandsController {
    private final BrandService brandService;
 
    @GetMapping
-    public List<Brand> getAll(){
+    public List<GetAllBrandsResponse> getAll(){
        return brandService.getAll();
    }
 
    @GetMapping("/{id}")
-    public Brand getById(@PathVariable int id){
+    public GetBrandResponse getById(@PathVariable int id){
        return brandService.getById(id);
    }
 
    @PostMapping
    @ResponseStatus(HttpStatus.CREATED)
-    public Brand add(@RequestBody Brand brand){
-       return brandService.add(brand);
+    public CreateBrandResponse add(@RequestBody CreateBrandRequest createBrandRequest){
+       return brandService.add(createBrandRequest);
    }
 
    @PutMapping("/{id}")
