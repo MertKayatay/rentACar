@@ -1,18 +1,17 @@
 package com.turkcellrentacar.rentACar.business.dto.responses.get;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
-
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAllBrandsResponse {
+public class GetAllModelsResponse {
     private int id;
+    private int brandId;
     private String name;
-    //private List<GetAllModelsResponse> models;
+    private String brandName;
 }

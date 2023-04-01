@@ -2,9 +2,11 @@ package com.turkcellrentacar.rentACar.business.concretes;
 
 import com.turkcellrentacar.rentACar.business.abstracts.BrandService;
 import com.turkcellrentacar.rentACar.business.dto.requests.create.CreateBrandRequest;
+import com.turkcellrentacar.rentACar.business.dto.requests.update.UpdateBrandRequest;
 import com.turkcellrentacar.rentACar.business.dto.responses.create.CreateBrandResponse;
 import com.turkcellrentacar.rentACar.business.dto.responses.get.GetAllBrandsResponse;
 import com.turkcellrentacar.rentACar.business.dto.responses.get.GetBrandResponse;
+import com.turkcellrentacar.rentACar.business.dto.responses.update.UpdateBrandResponse;
 import com.turkcellrentacar.rentACar.entities.Brand;
 import com.turkcellrentacar.rentACar.repository.BrandRepository;
 import lombok.AllArgsConstructor;
@@ -33,7 +35,7 @@ public class BrandManager implements BrandService {
 
     @Override
     public GetBrandResponse getById(int id) {
-        checkIfBrandExists(id);
+        checkIfBrandExistsById(id);
         Brand brand = brandRepository.findById(id).orElseThrow();
         GetBrandResponse getBrandResponse = mapper.map(brand, GetBrandResponse.class);
 
@@ -42,6 +44,8 @@ public class BrandManager implements BrandService {
 
     @Override
     public CreateBrandResponse add(CreateBrandRequest createBrandRequest) {
+        checkIfBrandExistsByName(createBrandRequest.getName());
+
         Brand brand = mapper.map(createBrandRequest, Brand.class);
         brand.setId(0);
         brandRepository.save(brand);
@@ -51,22 +55,31 @@ public class BrandManager implements BrandService {
     }
 
     @Override
-    public Brand update(int id, Brand brand) {
-        checkIfBrandExists(id);
+    public UpdateBrandResponse update(int id, UpdateBrandRequest updateBrandRequest) {
+        checkIfBrandExistsById(id);
+        Brand brand = mapper.map(updateBrandRequest, Brand.class);
         brand.setId(id);
-        return brandRepository.save(brand);
+        brandRepository.save(brand);
+        UpdateBrandResponse updateBrandResponse = mapper.map(brand, UpdateBrandResponse.class);
+        return updateBrandResponse;
     }
 
     @Override
     public void delete(int id) {
-        checkIfBrandExists(id);
+        checkIfBrandExistsById(id);
         brandRepository.deleteById(id);
 
     }
 
     //Business rules
 
-    private void checkIfBrandExists(int id) {
+    private void checkIfBrandExistsById(int id) {
         if (!brandRepository.existsById(id)) throw new IllegalArgumentException("Böyle bir marka mevcut değil");
+    }
+
+    private void checkIfBrandExistsByName(String name) {
+        if (brandRepository.existsByNameIgnoreCase(name)) {
+            throw new RuntimeException("Bu marka sistemde kayıtlı");
+        }
     }
 }
