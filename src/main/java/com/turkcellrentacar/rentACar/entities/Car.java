@@ -1,5 +1,6 @@
 package com.turkcellrentacar.rentACar.entities;
 
+import com.turkcellrentacar.rentACar.entities.enums.State;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +20,8 @@ public class Car {
     private int id;
     private int modelYear;
     private String plate;
-    private int state;  //1-Available 2- Ranted 3-Maintance
+    @Enumerated(EnumType.STRING)
+    private State state;  //1-Available 2- Ranted 3-Maintance
     private double dailyPrice;
 
     @ManyToOne
