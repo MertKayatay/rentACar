@@ -16,7 +16,7 @@ import com.turkcellrentacar.rentACar.business.dto.responses.update.UpdateModelRe
 import java.util.List;
 
 public interface CarService {
-    List<GetAllCarResponse> getAll();
+    List<GetAllCarResponse> getAll(int preference);
     GetCarResponse getById(int id);
     CreateCarResponse add(CreateCarRequest createCarRequest);
     UpdateCarResponse update(int id, UpdateCarRequest updateCarRequest);
