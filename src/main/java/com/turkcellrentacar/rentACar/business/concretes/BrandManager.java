@@ -48,8 +48,8 @@ public class BrandManager implements BrandService {
 
         Brand brand = mapper.map(createBrandRequest, Brand.class);
         brand.setId(0);
-        brandRepository.save(brand);
-        CreateBrandResponse createBrandResponse = mapper.map(brand, CreateBrandResponse.class);
+        Brand createdBrand = brandRepository.save(brand);
+        CreateBrandResponse createBrandResponse = mapper.map(createdBrand, CreateBrandResponse.class);
 
         return createBrandResponse;
     }
