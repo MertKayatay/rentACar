@@ -17,35 +17,27 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api/cars")
 public class CarsController {
-    private final CarService carService;
-
-    @GetMapping
-    public List<GetAllCarResponse> getAll(){
-
-        return carService.getAll();
+    private final CarService service;
+    @GetMapping("/filter/{pref}")
+    List<GetAllCarResponse> getAll(@PathVariable int pref){
+        return  service.getAll(pref);
     }
-
-    @GetMapping("/{id}")
-    public GetCarResponse getById(@PathVariable int id){
-        return carService.getById(id);
-
+    @GetMapping("/{id}") public GetCarResponse getById(@PathVariable int id){
+        return  service.getById(id);
     }
-
-    @PostMapping
+    @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CreateCarResponse add(@RequestBody CreateCarRequest request){
-        return carService.add(request);
+        return  service.add(request);
     }
-
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public UpdateCarResponse update(@PathVariable int id, @RequestBody UpdateCarRequest request){
-        return carService.update(id, request);
+        return service.update(id,request);
     }
-
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)// 284
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id){
-        carService.delete(id);
+        service.delete(id);
     }
 
 }
