@@ -13,4 +13,6 @@ public class GetAllCarResponse {
     private int id;
     private int modelId;
     private String plate;
+    private String modelName;
+    private String modelBrandName;
 }

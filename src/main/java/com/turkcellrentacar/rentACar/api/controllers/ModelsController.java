@@ -17,32 +17,32 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api/models")
 public class ModelsController {
-    private final ModelService modelService;
+    private final ModelService service;
 
     @GetMapping
-    public List<GetAllModelsResponse> getAll(){
-        return modelService.getAll();
+    public List<GetAllModelsResponse> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public GetModelResponse getById(@PathVariable int id){
-        return modelService.getById(id);
+    public GetModelResponse getById(@PathVariable int id) {
+        return service.getById(id);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)// 281
-    public CreateModelResponse add(@RequestBody CreateModelRequest request){
-        return modelService.add(request);
+    @ResponseStatus(HttpStatus.CREATED) // 201
+    public CreateModelResponse add(@RequestBody CreateModelRequest request) {
+        return service.add(request);
     }
 
     @PutMapping("/{id}")
-    public UpdateModelResponse update(@PathVariable int id, @RequestBody UpdateModelRequest request){
-        return modelService.update(id, request);
+    public UpdateModelResponse update(@PathVariable int id, @RequestBody UpdateModelRequest request) {
+        return service.update(id, request);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)// 284
-    public void delete(@PathVariable int id){
-        modelService.delete(id);
+    @ResponseStatus(HttpStatus.NO_CONTENT) // 204
+    public void delete(@PathVariable int id) {
+        service.delete(id);
     }
 }

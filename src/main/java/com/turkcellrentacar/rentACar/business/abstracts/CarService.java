@@ -12,13 +12,15 @@ import com.turkcellrentacar.rentACar.business.dto.responses.get.GetCarResponse;
 import com.turkcellrentacar.rentACar.business.dto.responses.get.GetModelResponse;
 import com.turkcellrentacar.rentACar.business.dto.responses.update.UpdateCarResponse;
 import com.turkcellrentacar.rentACar.business.dto.responses.update.UpdateModelResponse;
+import com.turkcellrentacar.rentACar.entities.enums.State;
 
 import java.util.List;
 
 public interface CarService {
-    List<GetAllCarResponse> getAll(int preference);
+    List<GetAllCarResponse> getAll(boolean includeMaintenance);
     GetCarResponse getById(int id);
-    CreateCarResponse add(CreateCarRequest createCarRequest);
-    UpdateCarResponse update(int id, UpdateCarRequest updateCarRequest);
+    CreateCarResponse add(CreateCarRequest request);
+    UpdateCarResponse update(int id, UpdateCarRequest request);
     void delete(int id);
+    void changeState(int carId, State state);
 }

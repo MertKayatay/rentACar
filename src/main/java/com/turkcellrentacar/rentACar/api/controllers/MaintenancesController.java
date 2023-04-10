@@ -14,32 +14,40 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/maintenances")
 @AllArgsConstructor
+@RequestMapping("/api/maintenances")
 public class MaintenancesController {
     private final MaintenanceService service;
+
     @GetMapping
-    List<GetAllMaintenancesResponse> getAll(){
-        return  service.getAll();
+    public List<GetAllMaintenancesResponse> getAll() {
+        return service.getAll();
     }
-    @GetMapping("/{id}") public GetMaintenanceResponse getById(@PathVariable int id){
-        return  service.getById(id);
+
+    @GetMapping("/{id}")
+    public GetMaintenanceResponse getById(@PathVariable int id) {
+        return service.getById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CreateMaintenanceResponse add(@RequestBody CreateMaintenanceRequest request){
-        return  service.add(request);
+    public CreateMaintenanceResponse add(@RequestBody CreateMaintenanceRequest request) {
+        return service.add(request);
+    }
+
+    @PutMapping("/return")
+    public GetMaintenanceResponse returnCarFromMaintenance(@RequestParam int carId) {
+        return service.returnCarFromMaintenance(carId);
     }
 
     @PutMapping("/{id}")
-    public UpdateMaintenanceResponse update(@PathVariable int id, @RequestBody UpdateMaintenanceRequest request){
-        return service.update(id,request);
-    }
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id){
-        service.delete(id);
+    public UpdateMaintenanceResponse update(@PathVariable int id, @RequestBody UpdateMaintenanceRequest request) {
+        return service.update(id, request);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable int id) {
+        service.delete(id);
+    }
 }

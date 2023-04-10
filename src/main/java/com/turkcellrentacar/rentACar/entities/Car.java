@@ -22,8 +22,8 @@ public class Car {
     private int id;
     private int modelYear;
     private String plate;
-    //@Enumerated(EnumType.STRING)
-    private int state;  //1-Available 2- Ranted 3-Maintance
+    @Enumerated(EnumType.STRING)
+    private State state;  //1-Available 2- Ranted 3-Maintance
     private double dailyPrice;
 
     @ManyToOne
