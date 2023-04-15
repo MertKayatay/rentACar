@@ -8,7 +8,7 @@ import com.turkcellrentacar.rentACar.business.dto.responses.create.CreatePayment
 import com.turkcellrentacar.rentACar.business.dto.responses.get.GetAllPaymentsResponse;
 import com.turkcellrentacar.rentACar.business.dto.responses.get.GetPaymentResponse;
 import com.turkcellrentacar.rentACar.business.dto.responses.update.UpdatePaymentResponse;
-import com.turkcellrentacar.rentACar.core.dto.CreateRentalPaymentRequest;
+import com.turkcellrentacar.rentACar.common.dto.CreateRentalPaymentRequest;
 import com.turkcellrentacar.rentACar.entities.Payment;
 import com.turkcellrentacar.rentACar.repository.PaymentRepository;
 import lombok.AllArgsConstructor;

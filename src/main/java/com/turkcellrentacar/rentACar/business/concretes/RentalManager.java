@@ -9,7 +9,7 @@ import com.turkcellrentacar.rentACar.business.dto.responses.create.CreateRentalR
 import com.turkcellrentacar.rentACar.business.dto.responses.get.GetAllRentalsResponse;
 import com.turkcellrentacar.rentACar.business.dto.responses.get.GetRentalResponse;
 import com.turkcellrentacar.rentACar.business.dto.responses.update.UpdateRentalResponse;
-import com.turkcellrentacar.rentACar.core.dto.CreateRentalPaymentRequest;
+import com.turkcellrentacar.rentACar.common.dto.CreateRentalPaymentRequest;
 import com.turkcellrentacar.rentACar.entities.Rental;
 import com.turkcellrentacar.rentACar.entities.enums.State;
 import com.turkcellrentacar.rentACar.repository.RentalRepository;
